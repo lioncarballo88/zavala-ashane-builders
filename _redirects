@@ -1,0 +1,23 @@
+# ============================================================
+# Zavala Ashane Builders — Netlify redirects
+# Netlify equivalent of .htaccess. Must sit at the site root.
+# HTTPS is also enforced by Netlify's "Force HTTPS" setting.
+# ============================================================
+
+# Canonical URL: https + no "www" (single 301 hop)
+http://www.zavalaashanebuilders.com/*   https://zavalaashanebuilders.com/:splat  301!
+https://www.zavalaashanebuilders.com/*  https://zavalaashanebuilders.com/:splat  301!
+http://zavalaashanebuilders.com/*       https://zavalaashanebuilders.com/:splat  301!
+
+# Internal files (repo docs, tooling, config) must never be public.
+# Mirrors the RedirectMatch 404 block in .htaccess.
+/_source/*              /index.html  404
+/README.md              /index.html  404
+/DEPLOY.md              /index.html  404
+/PENDIENTES.md          /index.html  404
+/build-deploy-zip.ps1   /index.html  404
+/netlify.toml           /index.html  404
+/.gitignore             /index.html  404
+
+# Friendly 404: unknown paths serve the homepage with a 404 status
+/*  /index.html  404

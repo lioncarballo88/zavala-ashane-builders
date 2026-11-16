@@ -1,0 +1,63 @@
+# ============================================================
+# Zavala Ashane Builders — Apache configuration
+# For GoDaddy Web Hosting / cPanel (Apache or LiteSpeed)
+# Upload this file to public_html root, together with the site files.
+# ============================================================
+
+# --- Default page + no directory listing ---
+DirectoryIndex index.html
+Options -Indexes
+
+# --- Canonical URL: force HTTPS + no "www"  (https://zavalaashanebuilders.com) ---
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # If the request is not HTTPS, or the host starts with "www.",
+  # redirect to the canonical form in a single 301 hop.
+  RewriteCond %{HTTPS} !=on [OR]
+  RewriteCond %{HTTP_HOST} ^www\. [NC]
+  RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# --- Protect internal files from public access ---
+# Original client assets and internal docs must never be public.
+RedirectMatch 404 ^/_source(/|$)
+RedirectMatch 404 ^/(README\.md|DEPLOY\.md|PENDIENTES\.md|build-deploy-zip\.ps1|\.gitignore)$
+
+# --- Friendly 404: send visitors back to the homepage ---
+ErrorDocument 404 /index.html
+
+# --- MIME types ---
+<IfModule mod_mime.c>
+  AddType font/woff2 .woff2
+  AddType image/svg+xml .svg
+</IfModule>
+
+# --- Compression (text-based files only; images/fonts are already compressed) ---
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# --- Browser caching ---
+# Note: CSS/JS are cached for 1 month. After an update, a hard refresh
+# (Ctrl+F5) may be needed, or ask for the versioned-file approach.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# --- Basic security headers ---
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Strict-Transport-Security "max-age=31536000" env=HTTPS
+</IfModule>

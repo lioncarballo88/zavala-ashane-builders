@@ -1,0 +1,19 @@
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Editor folders
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Original client assets — kept local, never deployed
+_source/
+
+# Deploy build artifacts
+zavala-ashane-deploy.zip

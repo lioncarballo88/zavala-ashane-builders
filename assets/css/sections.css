@@ -1,0 +1,905 @@
+/* ============================================================
+   ZAVALA ASHANE BUILDERS — sections.css
+   Section-specific layouts: hero, trust strip, services, about,
+   capabilities, properties, process, testimonials, CTA band, contact
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. HERO
+   ------------------------------------------------------------ */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding-top: clamp(7rem, 14vh, 10rem);
+  padding-bottom: clamp(7rem, 16vh, 11rem);
+  background-color: var(--navy-950);
+  background-image:
+    linear-gradient(
+      100deg,
+      rgba(6, 13, 22, 0.94) 0%,
+      rgba(6, 13, 22, 0.78) 42%,
+      rgba(6, 13, 22, 0.38) 100%
+    ),
+    url("../images/hero.jpg?v=4");
+  background-size: cover;
+  background-position: center;
+  color: #FFFFFF;
+}
+
+/* Soft fade into the section below */
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 10rem;
+  background: linear-gradient(to top, var(--navy-950), transparent);
+  pointer-events: none;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: var(--container-width);
+}
+
+/* hero.jpg is a dark, branded image (amber accents on the right half), so the
+   copy is width-capped to keep it over the dark left side — see the responsive
+   block at the end of this file. */
+
+.hero__eyebrow,
+.hero__title,
+.hero__tagline,
+.hero__lead,
+.hero__actions,
+.hero__chips {
+  max-width: 46rem;
+}
+
+.hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-heading);
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--amber-400);
+}
+
+.hero__eyebrow-line {
+  width: 2.5rem;
+  height: 2px;
+  background-color: var(--amber-500);
+}
+
+.hero__title {
+  margin-top: var(--space-5);
+  /* Longest line is "Built with Purpose." — cap the size against the content
+     column so the headline stays on two lines and clear of the amber/light
+     content on the right of hero.jpg. The desktop override lives at the end
+     of the file. */
+  font-size: min(var(--fs-h1), calc(12.4vw - 6px));
+  line-height: var(--lh-tight);
+  text-transform: uppercase;
+  letter-spacing: 0.005em;
+  text-shadow: 0 4px 30px rgba(6, 13, 22, 0.5);
+}
+
+.hero__title-accent {
+  color: var(--amber-500);
+}
+
+/* Brand tagline — the human promise, set off by a short amber rule */
+.hero__tagline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+  font-family: var(--font-heading);
+  font-size: clamp(1.0625rem, 0.85vw + 0.85rem, 1.375rem);
+  font-weight: 500;
+  letter-spacing: 0.035em;
+  line-height: 1.3;
+  color: var(--amber-300);
+  text-shadow: 0 4px 30px rgba(6, 13, 22, 0.45);
+}
+
+.hero__tagline-rule {
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2px;
+  background-color: var(--amber-500);
+}
+
+.hero__lead {
+  margin-top: var(--space-5);
+  font-size: var(--fs-lg);
+  color: rgba(232, 237, 244, 0.85);
+  max-width: 38rem;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-7);
+}
+
+.hero__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-7);
+}
+
+.hero__scroll {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(2rem, 6vh, 3.5rem);
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast);
+  animation: hero-scroll-bounce 2.4s ease-in-out infinite;
+}
+
+.hero__scroll:hover {
+  color: var(--amber-400);
+  border-color: var(--amber-500);
+}
+
+@keyframes hero-scroll-bounce {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, 8px);
+  }
+}
+
+/* ------------------------------------------------------------
+   2. TRUST STRIP
+   ------------------------------------------------------------ */
+.trust-bar {
+  background-color: var(--navy-950);
+  border-bottom: 1px solid var(--color-border-on-dark);
+  padding-block: var(--space-4);
+}
+
+.trust-bar__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3) clamp(1.75rem, 5vw, 3.5rem);
+}
+
+.trust-bar__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-on-dark);
+}
+
+.trust-bar__item .icon {
+  width: 1.15rem;
+  height: 1.15rem;
+  color: var(--amber-500);
+}
+
+/* ------------------------------------------------------------
+   3. SERVICES
+   ------------------------------------------------------------ */
+.services__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+
+/* Closing card of the services grid. Three services + this card fill the
+   mobile/tablet grids evenly (2 × 2); on desktop it spans the full row and
+   reads as a closing bar instead of leaving two empty cells behind. */
+.service-card__cta-text {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 46rem;
+}
+
+@media (min-width: 1024px) {
+  .services__grid > .service-card--cta {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-7);
+  }
+}
+
+/* ------------------------------------------------------------
+   4. ABOUT
+   ------------------------------------------------------------ */
+.about {
+  background-image: radial-gradient(
+    ellipse at 85% 15%,
+    rgba(39, 59, 96, 0.4),
+    transparent 55%
+  );
+}
+
+.about__inner {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: center;
+}
+
+.about__content .section-header__title {
+  margin-top: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.about__content p {
+  color: var(--color-text-on-dark-muted);
+  max-width: 40rem;
+}
+
+.about__content p + p {
+  margin-top: var(--space-4);
+}
+
+.about__content strong {
+  color: var(--color-text-on-dark);
+}
+
+.about__list {
+  display: grid;
+  gap: var(--space-3);
+  margin-block: var(--space-6);
+}
+
+.about__list li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--fs-sm);
+  color: var(--color-text-on-dark);
+}
+
+.about__list .icon {
+  width: 1.15rem;
+  height: 1.15rem;
+  color: var(--amber-500);
+  flex-shrink: 0;
+}
+
+/* Secondary action next to "Start Your Project" (links to the About page) */
+.about__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* Company quick-facts card */
+.about__card {
+  position: relative;
+}
+
+.about__card-inner {
+  position: relative;
+  padding: clamp(2rem, 4vw, 3rem) var(--space-6);
+  text-align: center;
+  background:
+    linear-gradient(160deg, rgba(39, 59, 96, 0.45), rgba(20, 39, 68, 0.25)),
+    var(--navy-800);
+  border: 1px solid var(--color-border-on-dark);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.about__card-inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border-top: 3px solid var(--amber-500);
+  pointer-events: none;
+}
+
+.about__logo {
+  width: 6.5rem;
+  height: 6.5rem;
+  margin-inline: auto;
+  mix-blend-mode: screen;
+}
+
+.about__card-name {
+  margin-top: var(--space-4);
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+.about__card-meta {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--amber-500);
+}
+
+.about__card-tagline {
+  margin-top: var(--space-3);
+  margin-inline: auto;
+  max-width: 20rem;
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  color: var(--amber-300);
+}
+
+.about__card-details {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border-on-dark);
+  text-align: left;
+}
+
+.about__card-details li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--fs-sm);
+  color: var(--color-text-on-dark-muted);
+  overflow-wrap: anywhere;
+}
+
+.about__card-details .icon {
+  width: 1.05rem;
+  height: 1.05rem;
+  color: var(--amber-500);
+  flex-shrink: 0;
+}
+
+/* ------------------------------------------------------------
+   4b. MISSION & VISION
+   ------------------------------------------------------------ */
+.mission {
+  background-image: radial-gradient(
+    ellipse at 15% 0%,
+    rgba(39, 59, 96, 0.45),
+    transparent 55%
+  );
+}
+
+.mission__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-5);
+  align-items: stretch;
+}
+
+.mission__panel {
+  padding: clamp(1.75rem, 3vw, 2.75rem) var(--space-6);
+  background:
+    linear-gradient(160deg, rgba(39, 59, 96, 0.45), rgba(20, 39, 68, 0.25)),
+    var(--navy-800);
+  border: 1px solid var(--color-border-on-dark);
+  border-top: 3px solid var(--amber-500);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.mission__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  color: var(--amber-500);
+  background-color: rgba(245, 166, 35, 0.12);
+  border: 1px solid rgba(245, 166, 35, 0.32);
+  border-radius: var(--radius-pill);
+}
+
+.mission__icon .icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.mission__title {
+  margin-top: var(--space-4);
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+.mission__body {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+  font-size: var(--fs-base);
+  line-height: var(--lh-body);
+  color: var(--color-text-on-dark-muted);
+}
+
+.mission__body strong {
+  font-weight: 600;
+  color: var(--color-text-on-dark);
+}
+
+/* ------------------------------------------------------------
+   5. CAPABILITIES (what we build)
+   ------------------------------------------------------------ */
+.capabilities .section-header {
+  margin-bottom: var(--space-6);
+}
+
+.capabilities__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+.capability-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background-color: var(--color-bg-white);
+  border: 1px solid var(--color-border-on-light);
+  border-top: 3px solid var(--amber-500);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.capability-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--amber-500);
+}
+
+.capability-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  color: var(--amber-600);
+  background-color: rgba(245, 166, 35, 0.1);
+  border-radius: var(--radius-md);
+}
+
+.capability-card__title {
+  font-size: var(--fs-h3);
+  text-transform: uppercase;
+}
+
+.capability-card__text {
+  font-size: var(--fs-sm);
+  color: var(--color-text-on-light-muted);
+  line-height: 1.65;
+}
+
+@media (max-width: 640px) {
+  .capabilities__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ------------------------------------------------------------
+   5b. PROPERTIES FOR SALE
+   ------------------------------------------------------------ */
+.properties__grid {
+  display: grid;
+  /* auto-fit: the cards fill the row whether there are 1, 2 or 3 listings */
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: var(--space-5);
+}
+
+.properties__note {
+  margin-top: var(--space-7);
+  text-align: center;
+  font-size: var(--fs-sm);
+  color: var(--color-text-on-dark-muted);
+}
+
+.properties__note a {
+  color: var(--amber-500);
+  font-weight: 600;
+  transition: color var(--transition-fast);
+}
+
+.properties__note a:hover {
+  color: var(--amber-400);
+}
+
+/* ------------------------------------------------------------
+   6. PROCESS
+   ------------------------------------------------------------ */
+.process__list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+}
+
+/* Process sits on a light band — override the dark defaults */
+.section--light .process-step {
+  border-top-color: var(--slate-300);
+}
+
+.section--light .process-step__title {
+  color: var(--slate-900);
+}
+
+.section--light .process-step__text {
+  color: var(--color-text-on-light-muted);
+}
+
+/* ------------------------------------------------------------
+   7. TESTIMONIALS
+   ------------------------------------------------------------ */
+.testimonials__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+
+/* ------------------------------------------------------------
+   8. CTA BAND
+   ------------------------------------------------------------ */
+.cta-band {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(3rem, 6vw, 4.5rem);
+  background-image:
+    repeating-linear-gradient(
+      115deg,
+      rgba(6, 13, 22, 0.055) 0,
+      rgba(6, 13, 22, 0.055) 22px,
+      transparent 22px,
+      transparent 46px
+    ),
+    linear-gradient(120deg, var(--amber-400), var(--amber-500) 55%, var(--amber-600));
+  color: var(--navy-950);
+}
+
+.cta-band__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+.cta-band__title {
+  font-size: var(--fs-h2);
+  text-transform: uppercase;
+  color: var(--navy-950);
+}
+
+.cta-band__lead {
+  margin-top: var(--space-2);
+  font-size: var(--fs-lg);
+  font-weight: 500;
+  color: rgba(6, 13, 22, 0.78);
+}
+
+.cta-band__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  flex-shrink: 0;
+}
+
+/* ------------------------------------------------------------
+   8b. OUR IMPACT STRIP
+   ------------------------------------------------------------
+   Slim band on the home page that points to our-impact.html.
+   Sits above the CTA band so it closes the story right before the
+   estimate call to action, without competing with the sales flow. */
+.impact-strip {
+  padding-block: clamp(2.25rem, 4vw, 3rem);
+  background-color: var(--navy-800);
+  border-top: 1px solid var(--color-border-on-dark);
+  border-bottom: 1px solid var(--color-border-on-dark);
+  color: var(--color-text-on-dark);
+}
+
+.impact-strip__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+.impact-strip__text {
+  max-width: 46rem;
+}
+
+.impact-strip__headline {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+.impact-strip__lead {
+  margin-top: var(--space-2);
+  font-size: var(--fs-sm);
+  color: var(--color-text-on-dark-muted);
+}
+
+.impact-strip__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--amber-400);
+  transition: color var(--transition-fast);
+}
+
+.impact-strip__link .icon {
+  width: 1.05em;
+  height: 1.05em;
+  transition: transform var(--transition-fast);
+}
+
+.impact-strip__link:hover {
+  color: var(--amber-300);
+}
+
+.impact-strip__link:hover .icon {
+  transform: translateX(4px);
+}
+
+/* ------------------------------------------------------------
+   9. CONTACT
+   ------------------------------------------------------------ */
+/* One column while the contact form is hidden (the <form> carries `hidden`).
+   When the form comes back, restore `grid-template-columns: 1fr 1.25fr;`. */
+.contact__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+/* Keeps the info block the same measure as .section-header above it */
+.contact__info {
+  max-width: 44rem;
+}
+
+/* ------------------------------------------------------------
+   10. RESPONSIVE
+   ------------------------------------------------------------ */
+/* The testimonials section is hidden until real reviews exist (see
+   index.html); keep the attribute effective if a display rule is added. */
+.testimonials[hidden] {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .services__grid,
+  .properties__grid,
+  .testimonials__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .process__list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-7) var(--space-5);
+  }
+
+  .about__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .about__card {
+    max-width: 26rem;
+  }
+
+  .mission__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cta-band__inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .contact__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* On desktop the copy is squeezed into the left column so it sits over the dark
+   part of hero.jpg, away from the amber/light content on the right. */
+@media (min-width: 800px) {
+  /* The headline is longer than that column allows at full display size: cap it
+     so both lines stay on two lines and inside the dark area. */
+  .hero__title {
+    font-size: min(var(--fs-h1), 3.6rem);
+  }
+
+  .hero__tagline,
+  .hero__lead,
+  .hero__actions,
+  .hero__chips {
+    max-width: min(30rem, calc(43vw - 5rem));
+  }
+}
+
+@media (min-width: 1280px) {
+  .hero__tagline,
+  .hero__lead,
+  .hero__actions,
+  .hero__chips {
+    max-width: min(30rem, calc(580px - 5vw));
+  }
+}
+
+@media (max-width: 640px) {
+  /* Compact hero: keep the whole section inside the first screen */
+  .hero {
+    padding-top: 5.5rem;
+    padding-bottom: 4.5rem;
+  }
+
+  .hero__eyebrow {
+    font-size: 0.8125rem;
+  }
+
+  .hero__title {
+    margin-top: var(--space-4);
+  }
+
+  .hero__lead {
+    margin-top: var(--space-4);
+  }
+
+  .hero__actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+  }
+
+  .hero__actions .btn {
+    width: 100%;
+    padding: 0.8rem 0.7rem;
+    font-size: 0.9375rem;
+  }
+
+  .hero__chips {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-2);
+    margin-top: var(--space-5);
+  }
+
+  .chip {
+    padding: 0.45rem 0.7rem;
+    font-size: 0.8125rem;
+  }
+
+  /* Trust strip: two per row so no single item stands alone */
+  .trust-bar__list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3) var(--space-4);
+    justify-items: start;
+  }
+
+  .trust-bar__item {
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* Cards: two per row, trimmed padding so the page stays short */
+  .services__grid,
+  .properties__grid,
+  .testimonials__grid,
+  .process__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+
+  .service-card {
+    gap: var(--space-3);
+    padding: var(--space-4);
+  }
+
+  .service-card__icon {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .service-card__icon .icon {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  .service-card__text,
+  .service-card__link {
+    font-size: 0.8125rem;
+  }
+
+  .property-card__body {
+    padding: var(--space-4);
+  }
+
+  .property-card__text {
+    font-size: 0.8125rem;
+  }
+
+  .property-card__specs li {
+    padding: 0.25rem 0.55rem;
+  }
+
+  .testimonial-card {
+    gap: var(--space-3);
+    padding: var(--space-4);
+  }
+
+  .testimonial-card__quote {
+    font-size: 0.875rem;
+  }
+
+  .testimonial-card__avatar {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .cta-band__actions {
+    width: 100%;
+  }
+
+  .cta-band__actions .btn {
+    flex: 1 1 auto;
+  }
+}
+
+/* Our Impact strip: stack the copy above the link */
+@media (max-width: 640px) {
+  .impact-strip__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-5);
+  }
+}

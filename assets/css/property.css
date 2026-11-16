@@ -1,0 +1,535 @@
+/* ============================================================
+   ZAVALA ASHANE BUILDERS — property.css
+   Property detail (listing) pages only.
+   Loaded after base.css + components.css + sections.css so the
+   header, footer, buttons, section headers and CTA band are the
+   shared site styles; this file only adds the listing blocks.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. PROPERTY HERO
+   ------------------------------------------------------------ */
+.prop-hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: clamp(30rem, 62vh, 42rem);
+  padding-top: clamp(7rem, 14vh, 9rem);
+  padding-bottom: clamp(2.5rem, 6vh, 4rem);
+  background-color: var(--navy-950);
+  background-size: cover;
+  background-position: center;
+  color: #FFFFFF;
+}
+
+/* Readability scrim over the listing photo (kept as a layer so each page
+   only has to set its own background-image on the modifier below). */
+.prop-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    100deg,
+    rgba(6, 13, 22, 0.94) 0%,
+    rgba(6, 13, 22, 0.76) 45%,
+    rgba(6, 13, 22, 0.42) 100%
+  );
+  pointer-events: none;
+}
+
+/* Per-listing hero photo — paths are relative to this stylesheet, like the
+   home hero in sections.css. Swap the file when the real photo arrives. */
+.prop-hero--mystic {
+  background-image: url("../images/mystic-circle.jpeg");
+}
+
+.prop-hero--treasure {
+  background-image: url("../images/treasure-island-exterior.jpeg");
+}
+
+.prop-hero__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.prop-hero__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-sm);
+  color: rgba(232, 237, 244, 0.85);
+  transition: color var(--transition-fast);
+}
+
+.prop-hero__back:hover {
+  color: var(--amber-400);
+}
+
+.prop-hero__back .icon {
+  width: 1em;
+  height: 1em;
+}
+
+.prop-hero__status {
+  display: inline-block;
+  margin-top: var(--space-6);
+  padding: 0.4rem 1rem;
+  font-family: var(--font-heading);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--navy-900);
+  background-color: #FFFFFF;
+  border-radius: var(--radius-pill);
+}
+
+.prop-hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  font-family: var(--font-heading);
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--amber-400);
+}
+
+.prop-hero__eyebrow::before {
+  content: "";
+  width: 2.5rem;
+  height: 2px;
+  background-color: var(--amber-500);
+}
+
+.prop-hero__title {
+  margin-top: var(--space-4);
+  max-width: 20ch;
+  font-size: clamp(2.25rem, 4.2vw + 1rem, 4rem);
+  line-height: var(--lh-tight);
+  text-transform: uppercase;
+  text-shadow: 0 4px 30px rgba(6, 13, 22, 0.5);
+}
+
+.prop-hero__lead {
+  margin-top: var(--space-5);
+  max-width: 42rem;
+  font-size: var(--fs-lg);
+  line-height: var(--lh-body);
+  color: rgba(232, 237, 244, 0.85);
+}
+
+.prop-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+/* ------------------------------------------------------------
+   2. QUICK STATS STRIP
+   ------------------------------------------------------------ */
+.prop-stats {
+  background-color: var(--navy-800);
+  border-top: 1px solid var(--color-border-on-dark);
+  border-bottom: 1px solid var(--color-border-on-dark);
+  color: var(--color-text-on-dark);
+}
+
+/* 1px gap + grid background = hairline separators that survive wrapping */
+.prop-stats__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background-color: var(--color-border-on-dark);
+}
+
+.prop-stats__list--six {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.prop-stats__item {
+  padding: var(--space-6) var(--space-5);
+  background-color: var(--navy-800);
+}
+
+.prop-stats__value {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--amber-400);
+}
+
+.prop-stats__label {
+  display: block;
+  margin-top: var(--space-1);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-on-dark-muted);
+}
+
+/* ------------------------------------------------------------
+   3. COPY + DETAILS SPLIT
+   ------------------------------------------------------------ */
+.prop-split {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+/* Heading on the left, body copy on the right */
+.prop-split--title {
+  grid-template-columns: 1fr 1.15fr;
+  align-items: start;
+}
+
+.prop-copy {
+  max-width: 44rem;
+}
+
+.prop-copy p {
+  font-size: var(--fs-base);
+  line-height: var(--lh-body);
+  color: var(--color-text-on-light-muted);
+}
+
+.prop-copy p + p {
+  margin-top: var(--space-4);
+}
+
+.prop-copy p.prop-copy__lead {
+  font-size: var(--fs-lg);
+  color: var(--color-text-on-light);
+}
+
+.prop-copy .section-header__title {
+  margin-top: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+/* Detail card */
+.prop-card {
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  background-color: var(--color-bg-white);
+  border: 1px solid var(--color-border-on-light);
+  border-top: 3px solid var(--amber-500);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.prop-card__title {
+  font-size: var(--fs-h4);
+  text-transform: uppercase;
+  color: var(--slate-900);
+}
+
+.prop-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5);
+  margin: var(--space-5) 0 0;
+}
+
+.prop-facts__item {
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border-on-light);
+}
+
+.prop-facts dt {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-on-light-muted);
+}
+
+.prop-facts dd {
+  margin: var(--space-1) 0 0;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--slate-900);
+}
+
+/* ------------------------------------------------------------
+   4. FEATURE CARDS (dark band)
+   ------------------------------------------------------------ */
+.prop-features {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+.prop-feature {
+  padding: var(--space-6);
+  background:
+    linear-gradient(160deg, rgba(39, 59, 96, 0.45), rgba(20, 39, 68, 0.25)),
+    var(--navy-800);
+  border: 1px solid var(--color-border-on-dark);
+  border-top: 3px solid var(--amber-500);
+  border-radius: var(--radius-lg);
+}
+
+.prop-feature__title {
+  font-size: var(--fs-h4);
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+.prop-feature__text {
+  margin-top: var(--space-3);
+  font-size: var(--fs-sm);
+  line-height: 1.65;
+  color: var(--color-text-on-dark-muted);
+}
+
+/* ------------------------------------------------------------
+   5. GALLERY (photo slots)
+   ------------------------------------------------------------ */
+.prop-gallery {
+  display: grid;
+  grid-template-columns: 1.35fr 0.65fr;
+  gap: var(--space-4);
+}
+
+.prop-gallery__side {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.prop-gallery__ph {
+  display: grid;
+  place-items: center;
+  min-height: 11rem;
+  padding: var(--space-5);
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-text-on-dark-muted);
+  background:
+    repeating-linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.035) 0 12px,
+      transparent 12px 24px
+    ),
+    linear-gradient(150deg, var(--navy-700), var(--navy-950));
+  border: 1px solid var(--color-border-on-dark);
+  border-radius: var(--radius-lg);
+}
+
+.prop-gallery__ph--big {
+  min-height: 23.5rem;
+}
+
+.prop-gallery__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 11rem;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+}
+
+.prop-gallery__img--big {
+  min-height: 23.5rem;
+}
+
+/* Photo frame + name overlay */
+.prop-gallery__item {
+  position: relative;
+  margin: 0;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.prop-gallery__label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: var(--space-6) var(--space-4) var(--space-3);
+  font-family: var(--font-heading);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  /* Transparent scrim: the photo stays visible behind the name */
+  background-image: linear-gradient(
+    to top,
+    rgba(6, 13, 22, 0.85),
+    rgba(6, 13, 22, 0.35) 55%,
+    rgba(6, 13, 22, 0)
+  );
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity var(--transition-base),
+    transform var(--transition-base);
+  pointer-events: none;
+}
+
+.prop-gallery__item:hover .prop-gallery__label,
+.prop-gallery__item:focus-within .prop-gallery__label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Touch devices can't hover — keep the room names visible */
+@media (hover: none) {
+  .prop-gallery__label {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prop-gallery__label {
+    transition: none;
+  }
+}
+
+.prop-gallery__caption {
+  margin-top: var(--space-5);
+  font-size: var(--fs-sm);
+  color: var(--color-text-on-light-muted);
+}
+
+.prop-gallery__caption code {
+  font-size: 0.9375em;
+}
+
+/* ------------------------------------------------------------
+   6. SPEC LISTS (dark band)
+   ------------------------------------------------------------ */
+.prop-specs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(2rem, 4vw, 3.5rem);
+}
+
+.prop-specs__card {
+  padding-top: var(--space-5);
+  border-top: 2px solid var(--amber-500);
+}
+
+.prop-specs__title {
+  font-size: var(--fs-h4);
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+.prop-specs__list {
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.prop-specs__list li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-5);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border-on-dark);
+  font-size: var(--fs-sm);
+}
+
+.prop-specs__list li span:first-child {
+  color: var(--color-text-on-dark-muted);
+}
+
+.prop-specs__list li span:last-child {
+  font-weight: 600;
+  text-align: right;
+  color: var(--color-text-on-dark);
+}
+
+/* ------------------------------------------------------------
+   7. RESPONSIVE
+   ------------------------------------------------------------ */
+@media (max-width: 1023px) {
+  .prop-split,
+  .prop-specs {
+    grid-template-columns: 1fr;
+  }
+
+  .prop-stats__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .prop-stats__list--six {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .prop-features {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .prop-gallery {
+    grid-template-columns: 1fr;
+  }
+
+  /* Second row of the gallery goes side by side, like the card grids */
+  .prop-gallery__side {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: none;
+  }
+
+  .prop-gallery__ph--big,
+  .prop-gallery__img--big {
+    min-height: 18rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .prop-features {
+    grid-template-columns: 1fr;
+  }
+
+  .prop-stats__list,
+  .prop-stats__list--six {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .prop-stats__item {
+    padding: var(--space-5) var(--space-4);
+  }
+
+  .prop-gallery__side {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: none;
+  }
+
+  /* Let the photos keep their own 4:3 framing instead of filling a tall box */
+  .prop-gallery__img,
+  .prop-gallery__img--big {
+    min-height: 0;
+    height: auto;
+  }
+
+  /* Keep the empty photo slot the same size as its neighbour */
+  .prop-gallery__ph {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+
+  /* Smaller tiles: keep the room name on one line */
+  .prop-gallery__label {
+    padding: var(--space-5) var(--space-3) var(--space-2);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+  }
+
+  .prop-facts {
+    grid-template-columns: 1fr;
+  }
+}

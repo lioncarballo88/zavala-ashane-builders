@@ -1,0 +1,46 @@
+# ============================================================
+# Zavala Ashane Builders — Netlify configuration
+#
+# Static site: no build step. When the site is connected to a Git
+# repository, Netlify publishes the repository root as-is.
+# `_source/` is excluded from Git by .gitignore, so the client
+# originals never reach the CDN.
+#
+# Redirects deliberately stay in `_redirects`: Netlify reads that
+# file on every deploy type, but only reads this file on builds
+# (a drag-and-drop ZIP deploy ignores netlify.toml).
+# ============================================================
+
+[build]
+  publish = "."
+
+# --- Security headers (mirror of .htaccess) ---
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Strict-Transport-Security = "max-age=31536000"
+
+# --- Caching (mirror of .htaccess) ---
+# CSS/JS rely on the ?v= query string in the HTML: bump it whenever
+# the file changes, otherwise browsers keep the cached copy.
+[[headers]]
+  for = "/assets/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/assets/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/assets/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/assets/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
