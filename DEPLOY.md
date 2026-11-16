@@ -22,8 +22,9 @@ _redirects         (Netlify only — mirrors .htaccess)
 assets/            (css, fonts, images, js)
 ```
 
-**Never upload:** `_source/` (original client assets). The included `.htaccess`
-also blocks public access to it as a safety net.
+**Never upload:** `_source/` (original client assets), the `.git/` folder,
+`netlify.toml` (Netlify reads it from the repository), or the docs/tooling.
+The included `.htaccess` / `_redirects` also hide them as a safety net.
 
 ### Create the upload ZIP automatically
 
@@ -34,8 +35,9 @@ powershell -ExecutionPolicy Bypass -File .\build-deploy-zip.ps1
 ```
 
 This creates `zavala-ashane-deploy.zip` with exactly the files above
-(it excludes `_source/`, docs and tooling automatically). It prints the full
-file list and the final size — **check that the 5 HTML pages are listed**.
+(it excludes `_source/`, `.git/`, `netlify.toml`, docs and tooling
+automatically). It prints the full file list and the final size — **check that
+the 5 HTML pages are listed**.
 
 ---
 

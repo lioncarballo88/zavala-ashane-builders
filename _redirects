@@ -11,13 +11,15 @@ http://zavalaashanebuilders.com/*       https://zavalaashanebuilders.com/:splat 
 
 # Internal files (repo docs, tooling, config) must never be public.
 # Mirrors the RedirectMatch 404 block in .htaccess.
-/_source/*              /index.html  404
-/README.md              /index.html  404
-/DEPLOY.md              /index.html  404
-/PENDIENTES.md          /index.html  404
-/build-deploy-zip.ps1   /index.html  404
-/netlify.toml           /index.html  404
-/.gitignore             /index.html  404
+# `404!` is required: these paths exist in the deploy, and Netlify
+# otherwise lets an existing file shadow the rule.
+/_source/*              /index.html  404!
+/README.md              /index.html  404!
+/DEPLOY.md              /index.html  404!
+/PENDIENTES.md          /index.html  404!
+/build-deploy-zip.ps1   /index.html  404!
+/netlify.toml           /index.html  404!
+/.gitignore             /index.html  404!
 
 # Friendly 404: unknown paths serve the homepage with a 404 status
 /*  /index.html  404

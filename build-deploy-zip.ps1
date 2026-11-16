@@ -1,7 +1,7 @@
 # ============================================================
 # Zavala Ashane Builders - deploy ZIP builder
 # Creates a clean ZIP for upload to GoDaddy (cPanel public_html).
-# Excludes: _source/ (client originals), docs and tooling.
+# Excludes: _source/ (client originals), .git/, docs, tooling, Netlify config.
 #
 # Usage:  powershell -ExecutionPolicy Bypass -File .\build-deploy-zip.ps1
 # ============================================================
@@ -10,7 +10,7 @@ $ErrorActionPreference = "Stop"
 $proj = Split-Path -Parent $MyInvocation.MyCommand.Path
 $out  = Join-Path $proj "zavala-ashane-deploy.zip"
 
-$excludeNames = @("_source", "README.md", "DEPLOY.md", "PENDIENTES.md", "build-deploy-zip.ps1", ".gitignore")
+$excludeNames = @("_source", ".git", "README.md", "DEPLOY.md", "PENDIENTES.md", "build-deploy-zip.ps1", "netlify.toml", ".gitignore")
 
 $items = Get-ChildItem -Path $proj -Force | Where-Object {
     $excludeNames -notcontains $_.Name -and $_.Extension -ne ".zip"
