@@ -268,14 +268,22 @@ Target domain: **`https://zavalaashanebuilders.com`** (GoDaddy).
 
 See **[DEPLOY.md](DEPLOY.md)** for the full step-by-step guide:
 
-- **Route A — Netlify (current host):** drag `zavala-ashane-deploy.zip` into
-  Netlify → Deploys. The domain, registered at GoDaddy, is pointed at Netlify
-  with Netlify DNS nameservers (or an `A`/`CNAME` pair). The included
-  `_redirects` mirrors `.htaccess` (HTTPS, www→apex, friendly 404).
+- **Route A — Netlify (current host):** the site is a Git-connected project —
+  `netlify.toml` publishes the repo root, so every push to `main` redeploys
+  automatically (fallback without a repo: drag `zavala-ashane-deploy.zip` into
+  Netlify → Deploys). The domain is registered at GoDaddy and already points at
+  Netlify (`A @ → 75.2.60.5`, `www →` apex). `_redirects` mirrors `.htaccess`
+  (HTTPS, www→apex, friendly 404, hidden internal files) and `netlify.toml`
+  carries the security/caching headers.
 - **Route B — GoDaddy Web Hosting (cPanel):** run `build-deploy-zip.ps1`, upload
   the ZIP to `public_html`, extract, run AutoSSL. The included `.htaccess`
   handles HTTPS, www-redirects, caching and compression automatically.
   `.htaccess` only applies to Apache hosts.
+
+> **Version control:** the repo is a normal Git checkout. `.gitignore` keeps
+> `_source/` (client originals), the deploy ZIP, OS files and editor folders out
+> of Git, so a Netlify deploy from the repo never publishes them. `_source/`
+> only exists on the local machine — keep a separate backup.
 
 ## Technical Notes
 
