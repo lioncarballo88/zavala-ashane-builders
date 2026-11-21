@@ -23,7 +23,7 @@ Options -Indexes
 # --- Protect internal files from public access ---
 # Original client assets and internal docs must never be public.
 RedirectMatch 404 ^/_source(/|$)
-RedirectMatch 404 ^/(README\.md|DEPLOY\.md|PENDIENTES\.md|build-deploy-zip\.ps1|\.gitignore)$
+RedirectMatch 404 ^/(README\.md|DEPLOY\.md|PENDIENTES\.md|MANUAL\.md|build-deploy-zip\.ps1|publish-gh-pages\.ps1|\.gitignore)$
 
 # --- Friendly 404: send visitors back to the homepage ---
 ErrorDocument 404 /index.html

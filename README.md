@@ -23,6 +23,10 @@ zavala-ashane-builders/
 ├── _redirects                 # Netlify equivalent of .htaccess (www→apex, 404, https, hidden files)
 ├── netlify.toml               # Netlify build (publish ".") + security & cache headers
 ├── build-deploy-zip.ps1       # Creates the clean ZIP for upload to Netlify/GoDaddy
+├── publish-gh-pages.ps1       # Publishes the site to the gh-pages branch (GitHub Pages)
+├── CNAME                      # Custom domain for GitHub Pages (zavalaashanebuilders.com)
+├── .nojekyll                  # Tells GitHub Pages to serve files as-is
+├── MANUAL.md                  # Master manual: accounts, providers, deploy, DNS, tools
 ├── DEPLOY.md                  # Full deployment guide (cPanel + DNS routes)
 ├── README.md
 ├── _source/                   # Original client assets — NOT deployed

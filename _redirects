@@ -17,7 +17,9 @@ http://zavalaashanebuilders.com/*       https://zavalaashanebuilders.com/:splat 
 /README.md              /index.html  404!
 /DEPLOY.md              /index.html  404!
 /PENDIENTES.md          /index.html  404!
+/MANUAL.md              /index.html  404!
 /build-deploy-zip.ps1   /index.html  404!
+/publish-gh-pages.ps1   /index.html  404!
 /netlify.toml           /index.html  404!
 /.gitignore             /index.html  404!
 

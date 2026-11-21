@@ -10,7 +10,7 @@ $ErrorActionPreference = "Stop"
 $proj = Split-Path -Parent $MyInvocation.MyCommand.Path
 $out  = Join-Path $proj "zavala-ashane-deploy.zip"
 
-$excludeNames = @("_source", ".git", "README.md", "DEPLOY.md", "PENDIENTES.md", "build-deploy-zip.ps1", "netlify.toml", ".gitignore", ".github", ".nojekyll", "CNAME", "_site")
+$excludeNames = @("_source", ".git", "README.md", "DEPLOY.md", "PENDIENTES.md", "MANUAL.md", "build-deploy-zip.ps1", "publish-gh-pages.ps1", "netlify.toml", ".gitignore", ".github", ".nojekyll", "CNAME", "_site")
 
 $items = Get-ChildItem -Path $proj -Force | Where-Object {
     $excludeNames -notcontains $_.Name -and $_.Extension -ne ".zip"
