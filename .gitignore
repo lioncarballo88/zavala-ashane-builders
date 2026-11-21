@@ -17,3 +17,4 @@ _source/
 
 # Deploy build artifacts
 zavala-ashane-deploy.zip
+_site/

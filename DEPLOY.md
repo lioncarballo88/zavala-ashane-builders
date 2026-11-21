@@ -53,6 +53,20 @@ Static bundle: no build step, no server code. `netlify.toml` sets
 > because DNS still points at Netlify but no site claims the hostname.
 > Create a new site (below) — **the DNS records do not need to change**.
 
+> 🚫 **2026-11-21 — Netlify is blocked for the custom domain.** The site was
+> redeployed as `preeminent-moonbeam-ba3b7f.netlify.app` and it serves all five
+> pages correctly, but adding `zavalaashanebuilders.com` fails with:
+>
+> *"zavalaashanebuilders.com or one of its subdomains is already managed by
+> Netlify DNS on another team."*
+>
+> The domain is still claimed by the Netlify account/team that created
+> `preeminent-naiad-7c9ab4` (that account is not accessible). Netlify has no
+> self-serve way to release it: either sign in to that old account and remove
+> the domain, or open a support ticket (**1–3 days**). Until then, use
+> **Route D (GitHub Pages)** for the custom domain and keep the
+> `*.netlify.app` URL as a preview.
+
 ### A1 — Publish the site
 
 **Option 1 — Git (recommended: auto-deploys, survives a deleted project).**
@@ -169,6 +183,57 @@ The site is 100% static — drag & drop the folder (excluding `_source/`) or con
    upload does no harm (it's ignored), but if you want the `http`→`https` and
    `www`→apex redirects, use the host's own config instead — the repo already
    ships `_redirects` for Netlify; use `vercel.json` for Vercel.
+
+---
+
+## Route D — GitHub Pages (custom domain while Netlify is blocked)
+
+Free, allows commercial use, and needs **no nameserver change** (email stays on
+Microsoft 365 at GoDaddy DNS). The repo ships everything needed:
+
+- `.github/workflows/pages.yml` — publishes only the public site on every push
+  to `main` (docs, tooling, `_source/`, `.htaccess` and Netlify config stay in
+  the repo but never reach the CDN).
+- `CNAME` — `zavalaashanebuilders.com`.
+- `.nojekyll` — serves files as-is (no Jekyll).
+- `404.html` is generated at deploy time from `index.html`, so the friendly 404
+  behaviour of `.htaccess` / `_redirects` is preserved.
+
+### D1 — Publish
+
+```powershell
+git remote add origin https://github.com/<user>/<repo>.git
+git push -u origin main
+```
+
+Then in the repo: **Settings → Pages → Build and deployment → Source:
+GitHub Actions**. The first push (or **Actions → Deploy site to GitHub Pages →
+Run workflow**) publishes to `https://<user>.github.io/<repo>/`.
+
+### D2 — DNS at GoDaddy
+
+| Type | Name | Value |
+| --- | --- | --- |
+| `A` | `@` | `185.199.108.153` |
+| `A` | `@` | `185.199.109.153` |
+| `A` | `@` | `185.199.110.153` |
+| `A` | `@` | `185.199.111.153` |
+| `CNAME` | `www` | `<user>.github.io` |
+
+- Delete/replace the current `A @ → 75.2.60.5` (Netlify) — **that record is what
+  keeps returning Netlify's 404**.
+- **Do not touch** MX, TXT (SPF / Microsoft 365) or autodiscover.
+- `CNAME www` currently points at the apex; it must point at `<user>.github.io`.
+
+### D3 — HTTPS
+
+Once DNS resolves to GitHub, **Settings → Pages → Custom domain** shows the
+domain as verified → enable **Enforce HTTPS**. The certificate is issued by
+GitHub (Let's Encrypt) within minutes.
+
+> GitHub Pages cannot apply `.htaccess` / `_redirects`, so the `http`→`https`
+> and `www`→apex redirects come from GitHub's own settings (Enforce HTTPS, and
+> the `CNAME` canonical domain) instead of the Apache/Netlify files.
 
 ---
 
