@@ -1,0 +1,477 @@
+/* ============================================================
+   ZAVALA ASHANE BUILDERS — pages.css
+   Company pages only: about.html (our story, values, founder)
+   and our-impact.html (Building Beyond Homes).
+   Loaded after base.css + components.css + sections.css, so the
+   header, footer, buttons, section headers, CTA band and reveal
+   animations stay the shared site styles — this file only adds
+   the blocks that are unique to these pages.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. PAGE HERO (typographic — no photo required)
+   ------------------------------------------------------------ */
+.page-hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: clamp(26rem, 54vh, 36rem);
+  padding-top: clamp(7rem, 14vh, 9rem);
+  padding-bottom: clamp(2.5rem, 6vh, 4rem);
+  overflow: hidden;
+  background-color: var(--navy-950);
+  color: #FFFFFF;
+}
+
+/* Blueprint grid + corner glow so the band has depth without a photo
+   (same visual family as the "blueprint" project placeholders). */
+.page-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.045) 0 1px,
+      transparent 1px 88px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.045) 0 1px,
+      transparent 1px 88px
+    ),
+    radial-gradient(ellipse at 80% 8%, rgba(39, 59, 96, 0.6), transparent 62%);
+  pointer-events: none;
+}
+
+/* To use a photo instead of the grid, add a page modifier that stacks the
+   scrim with the image — paths here are relative to this stylesheet:
+   .page-hero--about {
+     background-image:
+       linear-gradient(100deg, rgba(6,13,22,.94), rgba(6,13,22,.5)),
+       url("../images/your-photo.jpg");
+   }
+   Note: hero.jpg is not reusable here — it is a dark branded image with the
+   amber accents on the right, designed for the home hero's layout. */
+
+.page-hero__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.page-hero__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-sm);
+  color: rgba(232, 237, 244, 0.85);
+  transition: color var(--transition-fast);
+}
+
+.page-hero__back:hover {
+  color: var(--amber-400);
+}
+
+.page-hero__back .icon {
+  width: 1em;
+  height: 1em;
+}
+
+.page-hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+  font-family: var(--font-heading);
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--amber-400);
+}
+
+.page-hero__eyebrow::before {
+  content: "";
+  width: 2.5rem;
+  height: 2px;
+  background-color: var(--amber-500);
+}
+
+.page-hero__title {
+  margin-top: var(--space-4);
+  max-width: 22ch;
+  font-size: clamp(2.25rem, 4.2vw + 1rem, 4rem);
+  line-height: var(--lh-tight);
+  text-transform: uppercase;
+  text-shadow: 0 4px 30px rgba(6, 13, 22, 0.5);
+}
+
+/* Sentence-case statement line (used for the impact "main statement") */
+.page-hero__statement {
+  margin-top: var(--space-5);
+  max-width: 44rem;
+  font-family: var(--font-heading);
+  font-size: clamp(1.15rem, 1.5vw + 0.85rem, 1.65rem);
+  font-weight: 600;
+  line-height: 1.35;
+  color: #FFFFFF;
+}
+
+.page-hero__statement-accent {
+  color: var(--amber-400);
+}
+
+.page-hero__lead {
+  margin-top: var(--space-5);
+  max-width: 46rem;
+  font-size: var(--fs-lg);
+  line-height: var(--lh-body);
+  color: rgba(232, 237, 244, 0.85);
+}
+
+.page-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+/* ------------------------------------------------------------
+   2. STATEMENT (display-type brand line)
+   ------------------------------------------------------------ */
+.statement {
+  max-width: 54rem;
+}
+
+.statement__rule {
+  display: block;
+  width: 4rem;
+  height: 3px;
+  background-color: var(--amber-500);
+}
+
+.statement__text {
+  margin-top: var(--space-5);
+  font-family: var(--font-heading);
+  font-size: clamp(1.875rem, 3.4vw + 1rem, 3.25rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.statement__accent {
+  color: var(--amber-600);
+}
+
+.section--dark .statement__accent {
+  color: var(--amber-400);
+}
+
+.statement__lead {
+  margin-top: var(--space-5);
+  max-width: 42rem;
+  font-size: var(--fs-lg);
+  color: var(--color-text-on-light-muted);
+}
+
+.section--dark .statement__lead {
+  color: var(--color-text-on-dark-muted);
+}
+
+.statement--center {
+  max-width: 48rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.statement--center .statement__rule,
+.statement--center .statement__lead {
+  margin-inline: auto;
+}
+
+/* Closing message that follows a centred statement */
+.closing__body {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 44rem;
+  margin-top: var(--space-5);
+  font-size: var(--fs-lg);
+  line-height: var(--lh-body);
+  color: var(--color-text-on-dark-muted);
+}
+
+.statement--center .closing__body {
+  margin-inline: auto;
+}
+
+/* ------------------------------------------------------------
+   3. OUR VALUES (5 cards — 3 on top, 2 centred underneath)
+   ------------------------------------------------------------ */
+.values__grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+.value-card {
+  grid-column: span 2;
+  padding: clamp(1.5rem, 2.6vw, 2.25rem) var(--space-5);
+  background:
+    linear-gradient(160deg, rgba(39, 59, 96, 0.45), rgba(20, 39, 68, 0.25)),
+    var(--navy-800);
+  border: 1px solid var(--color-border-on-dark);
+  border-top: 3px solid var(--amber-500);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.value-card:nth-child(4) {
+  grid-column: 2 / span 2;
+}
+
+.value-card:nth-child(5) {
+  grid-column: 4 / span 2;
+}
+
+.value-card__icon,
+.pillar__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  color: var(--amber-500);
+  background-color: rgba(245, 166, 35, 0.12);
+  border: 1px solid rgba(245, 166, 35, 0.32);
+  border-radius: var(--radius-pill);
+}
+
+.value-card__icon .icon,
+.pillar__icon .icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.value-card__title {
+  margin-top: var(--space-4);
+  font-size: var(--fs-h4);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+.value-card__text {
+  margin-top: var(--space-3);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-body);
+  color: var(--color-text-on-dark-muted);
+}
+
+/* ------------------------------------------------------------
+   4. MEET THE FOUNDER
+   ------------------------------------------------------------ */
+.founder__grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.3fr;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+.founder__photo {
+  margin: 0;
+}
+
+.founder__photo-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+/* Placeholder until the founder's photo arrives (same idea as the
+   "Photo coming soon" slot used in the property galleries). */
+.founder__photo-ph {
+  display: grid;
+  place-items: center;
+  gap: var(--space-3);
+  aspect-ratio: 4 / 5;
+  padding: var(--space-5);
+  text-align: center;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slate-500);
+  background-color: var(--slate-100);
+  border: 1px dashed var(--slate-300);
+  border-radius: var(--radius-lg);
+}
+
+.founder__content {
+  max-width: 44rem;
+}
+
+.founder__name {
+  margin-top: var(--space-3);
+  font-size: var(--fs-h2);
+  text-transform: uppercase;
+  color: var(--slate-900);
+}
+
+.founder__role {
+  margin-top: var(--space-2);
+  font-family: var(--font-heading);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--amber-600);
+}
+
+.founder__bio {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+  color: var(--color-text-on-light-muted);
+}
+
+.founder__bio strong {
+  color: var(--color-text-on-light);
+}
+
+/* ------------------------------------------------------------
+   5. IMPACT PILLARS (environment · community · action)
+   ------------------------------------------------------------ */
+.pillars__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5);
+  align-items: stretch;
+}
+
+.pillar {
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  background-color: var(--color-bg-white);
+  border: 1px solid var(--color-border-on-light);
+  border-top: 3px solid var(--amber-500);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.pillar__icon {
+  color: var(--amber-600);
+}
+
+.pillar__title {
+  margin-top: var(--space-4);
+  font-size: var(--fs-h4);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--slate-900);
+}
+
+.pillar__lead {
+  margin-top: var(--space-3);
+  font-family: var(--font-heading);
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  line-height: var(--lh-heading);
+  color: var(--amber-600);
+}
+
+.pillar__body {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-body);
+  color: var(--color-text-on-light-muted);
+}
+
+/* ------------------------------------------------------------
+   6. OUR IMPACT IN ACTION (numbers strip)
+   ------------------------------------------------------------ */
+.impact-actions__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background-color: var(--color-border-on-dark);
+  border: 1px solid var(--color-border-on-dark);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.impact-card {
+  padding: var(--space-6) var(--space-5);
+  background-color: var(--navy-800);
+}
+
+.impact-card__value {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--amber-400);
+}
+
+.impact-card__label {
+  display: block;
+  margin-top: var(--space-2);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  line-height: 1.6;
+  text-transform: uppercase;
+  color: var(--color-text-on-dark-muted);
+}
+
+/* ------------------------------------------------------------
+   7. RESPONSIVE
+   ------------------------------------------------------------ */
+@media (min-width: 1024px) {
+  /* Let the portrait ride along while the long bio scrolls */
+  .founder__photo {
+    position: sticky;
+    top: 6.5rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  .values__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .value-card,
+  .value-card:nth-child(4),
+  .value-card:nth-child(5) {
+    grid-column: auto;
+  }
+
+  .founder__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .founder__photo {
+    max-width: 24rem;
+  }
+
+  .pillars__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .impact-actions__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .values__grid,
+  .impact-actions__grid {
+    grid-template-columns: 1fr;
+  }
+}
