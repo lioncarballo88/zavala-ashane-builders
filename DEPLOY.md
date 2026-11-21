@@ -233,14 +233,22 @@ Every republish is the one script call above. Pages rebuilds in ~1 minute.
 
 | Type | Name | Value | State |
 | --- | --- | --- | --- |
-| `A` | `@` | `185.199.108.153` | ✅ set (replaced Netlify's `75.2.60.5`) |
-| `A` | `@` | `185.199.109.153` | ⬜ pending (redundancy only) |
-| `A` | `@` | `185.199.110.153` | ⬜ pending (redundancy only) |
-| `A` | `@` | `185.199.111.153` | ⬜ pending (redundancy only) |
-| `CNAME` | `www` | `lioncarballo88.github.io` | ⬜ still points at the apex — `www` has no certificate until this changes |
+| `A` | `@` | `185.199.108.153` | ✅ set |
+| `A` | `@` | `185.199.109.153` | ✅ set |
+| `A` | `@` | `185.199.110.153` | ✅ set |
+| `A` | `@` | `185.199.111.153` | ✅ set |
+| `www` | — | **GoDaddy 301 forwarding → `https://zavalaashanebuilders.com`** | ✅ set |
 
-- The old `A @ → 75.2.60.5` (Netlify) was deleted; that record was what kept
+- The four apex `A` records point at GitHub Pages; the old
+  `A @ → 75.2.60.5` (Netlify) was deleted — that record was what kept
   returning Netlify's 404.
+- `www` uses **GoDaddy forwarding** (permanent 301) instead of the
+  `CNAME www → lioncarballo88.github.io` that GitHub documents. Reason: GitHub
+  provisioned its certificate for the apex only
+  (`https_certificate.domains = ["zavalaashanebuilders.com"]`) and `www`
+  returned 404 over both HTTP and HTTPS, so visitors typing `www` got an error.
+  Forwarding fixes it instantly and GoDaddy serves a valid certificate for
+  `www`. Chain: `www` → `301` → apex → `301` → `https://apex` (200).
 - **Do not touch** MX, TXT (SPF / Microsoft 365), `_dmarc`, `autodiscover`,
   `_domainconnect`, `email`, `msoid`, `lyncdiscover`, `sip`.
 - The DNS panel lives in **GoConnect → Manage DNS records**
