@@ -63,11 +63,13 @@ Static bundle: no build step, no server code. `netlify.toml` sets
 > The domain is still claimed by the Netlify account/team that created
 > `preeminent-naiad-7c9ab4` (that account is not accessible). Netlify has no
 > self-serve way to release it: either sign in to that old account and remove
-> the domain, or open a support ticket (**1–3 days**). Until then, the site is
-> published through **Route D (GitHub Pages)**:
-> `https://lioncarballo88.github.io/zavala-ashane-builders/`, repository
+> the domain, or open a support ticket (**1–3 days**).
+>
+> **The site is now live on the real domain through Route D (GitHub Pages):**
+> `https://zavalaashanebuilders.com` — repository
 > [lioncarballo88/zavala-ashane-builders](https://github.com/lioncarballo88/zavala-ashane-builders).
-> The `*.netlify.app` URL stays as a preview.
+> Netlify is no longer in the DNS path; the `*.netlify.app` URL is only a
+> preview.
 
 ### A1 — Publish the site
 
@@ -227,36 +229,37 @@ Every republish is the one script call above. Pages rebuilds in ~1 minute.
 
 ### D2 — DNS at GoDaddy
 
-| Type | Name | Value |
-| --- | --- | --- |
-| `A` | `@` | `185.199.108.153` |
-| `A` | `@` | `185.199.109.153` |
-| `A` | `@` | `185.199.110.153` |
-| `A` | `@` | `185.199.111.153` |
-| `CNAME` | `www` | `lioncarballo88.github.io` |
+**Applied 2026-11-21.** Current records:
 
-- Delete/replace the current `A @ → 75.2.60.5` (Netlify) — **that record is what
-  keeps returning Netlify's 404**.
-- **Do not touch** MX, TXT (SPF / Microsoft 365) or autodiscover.
-- `CNAME www` currently points at the apex; it must point at
-  `lioncarballo88.github.io`.
+| Type | Name | Value | State |
+| --- | --- | --- | --- |
+| `A` | `@` | `185.199.108.153` | ✅ set (replaced Netlify's `75.2.60.5`) |
+| `A` | `@` | `185.199.109.153` | ⬜ pending (redundancy only) |
+| `A` | `@` | `185.199.110.153` | ⬜ pending (redundancy only) |
+| `A` | `@` | `185.199.111.153` | ⬜ pending (redundancy only) |
+| `CNAME` | `www` | `lioncarballo88.github.io` | ⬜ still points at the apex — `www` has no certificate until this changes |
+
+- The old `A @ → 75.2.60.5` (Netlify) was deleted; that record was what kept
+  returning Netlify's 404.
+- **Do not touch** MX, TXT (SPF / Microsoft 365), `_dmarc`, `autodiscover`,
+  `_domainconnect`, `email`, `msoid`, `lyncdiscover`, `sip`.
+- The DNS panel lives in **GoConnect → Manage DNS records**
+  (`https://dcc.godaddy.com/control/dnsmanagement?domainName=zavalaashanebuilders.com`).
+  Editing the `A @` value in place can fail with *"el valor no es válido"*;
+  deleting the record and creating a new one works.
 
 ### D3 — Attach the domain + HTTPS
 
-Only after the DNS above resolves to GitHub:
+**Done.** The custom domain is attached and HTTPS is enforced:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\publish-gh-pages.ps1 -CustomDomain
-```
-
-then set the custom domain and enforce HTTPS (Settings → Pages, or):
-
-```powershell
 gh api -X PUT repos/lioncarballo88/zavala-ashane-builders/pages -f cname=zavalaashanebuilders.com
 gh api -X PUT repos/lioncarballo88/zavala-ashane-builders/pages -F https_enforced=true
 ```
 
-The certificate is issued by GitHub (Let's Encrypt) within minutes.
+Certificate: Let's Encrypt `CN=zavalaashanebuilders.com` (auto-renewed by
+GitHub). `http://` returns `301` to `https://` after the next Pages build.
 
 > Publishing `CNAME` **before** DNS is repointed makes the `*.github.io` URL
 > redirect to the broken domain — that is why the flag exists.
